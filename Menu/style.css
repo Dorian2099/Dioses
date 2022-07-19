@@ -1,0 +1,135 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav__Container{
+    margin: 0 auto; /*Centrar mi menu */ 
+    width: 90%;
+    max-width: 1200px; /* Centrar contenedor*/
+    overflow: hidden; /* Todo lo que sale del contenedor se esconde*/
+}
+
+.Tesla{
+    /* background-image: linear-gradient(black,blue),url('archivos/Tesla2.png'); Linea para un color degradado arriba
+    de la imagen */
+    background-image: url('archivos/Tesla2.png');
+    background-size: cover; /* Que se ajuste a Tesla2*/ 
+    min-height: 500px;
+    height: 100vh; /* No mayor a 500px y siempre ocupara el 100% del alto*/
+    color:white;
+}
+
+nav{
+    --state-Close: scale(0); /*El estado de close inicial sera: no mostrar*/
+    --state-Hamburguer: scale(1); /*El estado de Hamburguer inicial sera: mostrar*/
+    --state-Menu: translate(-100%); /*Para que el menu se vaya a la izquierda*/
+
+    padding: 40px 0;
+    display: grid; /* modo grid para el navegador*/
+    justify-content: space-between; /*Pasar celdas a su contenedor de manera horizontal*/
+    align-items: center;
+    grid-template-columns: repeat(2,max-content); /* Dos columnas del maximo contenido*/
+}
+
+nav:target{
+    /*Cuando se de clic en Close o Hamburguer se cambiaran los iconos ya que apuntan a la etiquera nav*/
+    /*Agregando "Menu" al apuntar a nav se va a mostrar los links al usuario*/
+    --state-Menu: translate(0); /*mostrando menu*/
+    --state-Close: scale(1); 
+    --state-Hamburguer: scale(0);
+}
+
+.Logo{
+    width: 40px;
+    padding-left:5%;
+}
+.nav__Logo{
+    /* font-size: 2.5rem; Tamaño relativo */
+    z-index: 1; /*Los hijos directos de un grid container pueden usar un z index 1*/
+}
+
+.nav__Hamburguer, .nav__Close{
+    cursor: pointer;
+    grid-column: -2/-1; /*posicionar en columnas desde la penultima linea hasta la ultima*/
+    grid-row: 1/2; /*filas desde la primera hasta la segunda*/
+    transition: transform .4s ease; /*Agregamos mejora a la animacion*/
+}
+
+/*Permiten la animacion de cambio*/
+.nav__Hamburguer{
+    transform: var(--state-Hamburguer);
+}
+
+.nav__Close{
+    transform: var(--state-Close);
+}
+/*Hasta aqui*/
+
+.nav__Icon{
+    width: 40px;
+}
+
+
+.nav__Links{
+    position: absolute; /*Para que salga del grid*/
+    top:0; /*Arriba*/
+    bottom:0; /*Abajo*/
+    left:0;
+    right:0; 
+    /*Ocupa el 100% de alto y de ancho*/
+    padding:0;
+
+    display:grid;
+    align-content: center;
+    gap: 2em;
+    padding-left: 5%;
+    /*Va a reaccionar a la accion de menu*/
+    transform: var(--state-Menu);
+    /*animando dicha accion...*/
+    transition: transform 0.3s ease;
+}
+
+.nav__Item{
+    list-style: none;
+}
+
+.nav__Link{
+    color:white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+/*Lo que pasa cuando el ancho de la ventana es de minimo 768px*/
+@media (min-width:768px){
+    nav{
+        --state-Hamburguer:scale(0); /*No lo muestra*/
+        --state-Menu: translate(0); /*Si lo muestra*/
+    }
+
+    nav:target{
+        --state-Close: scale(0); /*No lo muestra*/
+    }
+
+    .nav__Links{
+        position: unset; /*Valor original, es decir vuelve a grid*/
+        padding:0;
+        gap: 1.5em;
+        grid-auto-flow: column; /*Flujo en columnas en vez de filas
+        /*Dejando el transform en su valor original*/
+        transform: unset;
+        grid-column: -2/-1;
+        grid-row: 1/2;
+    }
+
+    .nav__Link{
+        font-size: 1rem;
+        letter-spacing: none;
+    }
+}
+
