@@ -1,0 +1,5 @@
+Recordando como se suben cosas a repositorio 
+
+desde carpeta de repositorio: git init
+despues: git status
+ya se pueden añadir los archivos y realizar los comits 
